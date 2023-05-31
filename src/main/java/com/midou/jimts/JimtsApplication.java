@@ -18,36 +18,59 @@ public class JimtsApplication implements ApplicationRunner {
         builder.headless(false).run(args);
     }
 
-//    public static class Point {
-//        public String time; // 时间
-//
-//        public float value; // 数值
-//
-//        /**
-//         * 构建一个Point对象
-//         * @param time
-//         * @param value
-//         * @return
-//         */
-//        public static Point build(String time, float value) {
-//            Point point = new Point();
-//            point.time = time;
-//            point.value = value;
-//            return point;
-//        }
-//    }
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        String[] xData = new String[] { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
+        int[] yData = new int[] { 820, 932, 901, 934, 1290, 1330, 1320 };
+        int average = average(xData, yData);
+        int maximum = maximum(xData, yData);
+        int minimum = minimum(xData, yData);
+
+        String title = String.format("Week data avg: %d, max: %d, min: %d", average, maximum, minimum);
+        renderChart(xData, yData, title);
+    }
+
+    /**
+     * calculate the average value
+     * @param xData
+     * @param yData
+     * @return
+     */
+    private int average(String[] xData, int[] yData) {
+        return 0;
+    }
+
+    /**
+     * calculate the maximum value
+     * @param xData
+     * @param yData
+     * @return
+     */
+    private int maximum(String[] xData, int[] yData) {
+        return 0;
+    }
+
+    /**
+     * calculate the minimum value
+     * @param xData
+     * @param yData
+     * @return
+     */
+    private int minimum(String[] xData, int[] yData) {
+        return 0;
+    }
+
+    /**
+     * Render line chart
+     * @param xData
+     * @param yData
+     */
+    private static void renderChart(String[] xData, int[] yData, String title) {
         Line line = new Line()
-                .addXAxis(new CategoryAxis()
-                        .setData(new String[] { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" })
-                        .setBoundaryGap(false))
+                .addXAxis(new CategoryAxis().setData(xData).setBoundaryGap(false))
                 .addYAxis()
-                .addSeries(new LineSeries()
-                        .setData(new Number[] { 820, 932, 901, 934, 1290, 1330, 1320 })
-                        .setLabel(new SeriesLabel().setShow(true)))
-                .setTitle("Week Data");
+                .addSeries(new LineSeries().setData(yData).setLabel(new SeriesLabel().setShow(true)))
+                .setTitle(title);
 
         Engine engine = new Engine();
         engine.render("test2.html", line, "600px", "600px", true);
